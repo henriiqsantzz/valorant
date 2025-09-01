@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Valorant — Guia de Apelação & Suporte</title>
+<meta name="description" content="Consultoria para apelação oficial de ban no Valorant: revisão de caso, orientações e boas práticas. Não vendemos unban, não usamos ferramentas ilegais." />
+<style>
+  :root{
+    --bg1:#2b0f74; --bg2:#6a1ace; --bg3:#8a3cf3;
+    --card: rgba(255,255,255,.06); --card-2: rgba(255,255,255,.08);
+    --stroke: rgba(255,255,255,.14);
+    --text:#fff; --muted:#e8ddff;
+    --ok:#22c55e; --warn:#f59e0b; --err:#ef4444;
+    --radius:20px; --shadow:0 18px 50px rgba(0,0,0,.35),0 0 80px rgba(138,60,243,.22);
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font:500 16px/1.55 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color:var(--text);
+    background:
+      radial-gradient(1100px 700px at 20% -10%, #9a6cff33 0%, transparent 60%),
+      radial-gradient(900px 700px at 90% 20%, #6a1ace44 0%, transparent 60%),
+      linear-gradient(135deg, var(--bg1), var(--bg2) 50%, var(--bg3));
+    background-attachment:fixed;
+    -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+    scroll-behavior:smooth;
+  }
+  a{color:inherit;text-decoration:none}
+  .container{max-width:1100px;margin:0 auto;padding:28px 16px 80px}
+
+  /* Header */
+  .top{background:linear-gradient(180deg,#4a18b5 0%,#3c1497 100%);border-bottom:1px solid #0003;box-shadow:inset 0 -1px 0 #fff2}
+  .nav{display:flex;align-items:center;justify-content:flex-start;gap:12px;padding:16px}
+  .nav-left{display:flex;align-items:center;gap:12px}
+  .logo{height:54px;width:auto;display:block;filter:drop-shadow(0 2px 8px rgba(0,0,0,.35))}
+  @media (max-width:480px){ .logo{height:44px} }
+  .brand{font-weight:900;letter-spacing:.2px}
+  .brand span{opacity:.85;font-weight:700}
+  .btn{display:inline-block;border-radius:12px;padding:12px 16px;font-weight:800;background:#fff;color:#2f1b86;box-shadow:0 10px 28px rgba(0,0,0,.35)}
+  .btn:hover{transform:translateY(-1px)}
+  .ghost{background:transparent;color:#fff;border:1px solid #ffffff40}
+
+  /* Hero */
+  .hero{padding:28px 0 8px;text-align:center}
+  .hero h1{font-size:clamp(26px,4.6vw,44px);font-weight:900;line-height:1.1}
+  .hero p{color:var(--muted);margin:10px auto 16px;max-width:760px}
+  .badges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:8px}
+  .badge{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:8px 12px;background:rgba(255,255,255,.08);color:var(--muted);font-weight:700;font-size:12px;border:1px solid var(--stroke);backdrop-filter:blur(4px)}
+
+  /* Cards */
+  .card{background:var(--card);border:1px solid var(--stroke);border-radius:var(--radius);box-shadow:var(--shadow);backdrop-filter:blur(6px)}
+  .pad{padding:clamp(18px,3.2vw,28px)}
+  .section{margin-top:24px}
+  .title{font-size:clamp(20px,3.2vw,30px);font-weight:900;text-align:center;margin-bottom:10px}
+
+  /* Benefits */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media (max-width:920px){ .grid{grid-template-columns:1fr} }
+  .benefit{background:var(--card-2);border:1px solid var(--stroke);border-radius:16px;padding:18px;text-align:center}
+  .ring{width:90px;height:90px;border-radius:50%;display:grid;place-items:center;margin:0 auto 12px;background:conic-gradient(from 120deg,#3b1f9c,#7a36ff,#b08cff,#7a36ff,#3b1f9c);box-shadow:inset 0 0 30px #0003}
+  .ring svg,.ring img{width:42px;height:42px;object-fit:contain}
+  .benefit h3{font-size:18px;font-weight:800}
+  .benefit p{color:var(--muted);font-size:14px;margin-top:6px}
+
+  /* Pricing */
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media (max-width:920px){ .plans{grid-template-columns:1fr} }
+  .plan{border:1px solid var(--stroke);border-radius:16px;padding:20px;background:var(--card)}
+  .plan h4{font-size:18px;margin-bottom:6px}
+  .price{font-size:32px;font-weight:900;margin:6px 0 10px}
+  .hint{font-size:12px;color:var(--muted)}
+  .plan ul{list-style:none;display:grid;gap:8px;margin-top:10px;color:var(--muted);font-size:14px}
+  .buy{display:inline-block;margin-top:14px;background:#fff;color:#2f1b86;font-weight:900;padding:12px 14px;border-radius:12px}
+  .buy:hover{transform:translateY(-1px)}
+
+  /* FAQ */
+  .faq{margin-top:24px}
+  .qa{border-top:1px solid #ffffff2a}
+  .q{display:flex;justify-content:space-between;gap:8px;cursor:pointer;padding:14px 6px;font-weight:800}
+  .a{display:none;color:var(--muted);padding:0 6px 14px}
+  .qa.open .a{display:block}
+
+  footer{text-align:center;color:#e7ddffcc;font-size:12px;padding:40px 0 10px}
+  /* ===== Destaques (lista) ===== */
+  #destaques ul{ list-style:none; display:grid; gap:10px; padding:0; margin-top:8px }
+  #destaques li{ background:var(--card-2); border:1px solid var(--stroke); border-radius:12px; padding:12px 14px; display:flex; gap:10px; align-items:flex-start }
+  #destaques .dot{ width:8px; height:8px; border-radius:50%; background:#e9d5ff; margin-top:8px; flex:0 0 8px }
+  #destaques .t{ color:var(--muted) }
+.badge::before{content:"";width:6px;height:6px;border-radius:50%;background:#e9d5ff;display:inline-block;margin-right:8px}
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="container nav">
+      <div class="nav-left">
+        <img class="logo" src="sandbox:/mnt/data/goat_community_transparent.png" alt="GOAT Community logo" />
+        <div class="brand">VALORANT <span>Apelação & Suporte</span></div>
+      </div>
+    </div>
+      
+    </div>
+  </div>
+
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero card pad">
+      <h1>Guia de Apelação Oficial para Valorant</h1>
+      <p>Serviço de consultoria para entender o motivo do ban, preparar uma apelação clara e encaminhar pelos <strong>canais oficiais da Riot</strong>. 
+      <br>Não vendemos “unban”, não usamos ferramentas ilegais e <strong>não garantimos desbloqueio</strong>.</p>
+
+      <div class="badges">
+        <span class="badge">Conformidade com ToS</span>
+        <span class="badge">Pagamento seguro</span>
+        <span class="badge">Suporte por e-mail</span>
+      </div>
+    </section>
+
+    <!-- DESTAQUES --><!-- BENEFÍCIOS -->
+    <section class="section">
+      <h2 class="title">Como nós ajudamos</h2>
+      <div class="grid">
+        <article class="benefit">
+          <div class="ring" aria-hidden="true">
+            <img src="sandbox:/mnt/data/Valorant_logo_-_pink_color_version_(cropped).png" alt="Valorant logo" />
+          </div>
+          <h3>Análise do caso</h3>
+          <p>Checklist do que pode ter gerado o ban e orientações de segurança da conta.</p>
+        </article>
+        <article class="benefit">
+          <div class="ring" aria-hidden="true">
+            <img src="sandbox:/mnt/data/Valorant_logo_-_pink_color_version_(cropped).png" alt="Valorant logo" />
+          </div>
+          <h3>Roteiro de apelação</h3>
+          <p>Modelo de mensagem personalizado para abrir ticket no suporte da Riot.</p>
+        </article>
+        <article class="benefit">
+          <div class="ring" aria-hidden="true">
+            <img src="sandbox:/mnt/data/Valorant_logo_-_pink_color_version_(cropped).png" alt="Valorant logo" />
+          </div>
+          <h3>Acompanhamento</h3>
+          <p>Revisão das respostas do suporte e próximos passos sugeridos.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- PLANOS -->
+    <section id="planos" class="section card pad">
+      <h2 class="title">Planos</h2>
+      <div class="plans" id="comprar">
+        <article class="plan">
+          <h4>Essencial</h4>
+          <div class="price">R$ 39,90</div>
+          <div class="hint">Para quem precisa do básico</div>
+          <ul>
+            <li>Checklist de causas comuns</li>
+            <li>Modelo de apelação</li>
+            <li>Guia de segurança da conta</li>
+          </ul>
+          <a class="buy" href="https://seu-checkout.com/essencial" target="_blank" rel="noopener noreferrer">Comprar Essencial</a>
+        </article>
+
+        <article class="plan">
+          <h4>Completo</h4>
+          <div class="price">R$ 99,90</div>
+          <div class="hint">Suporte com revisão</div>
+          <ul>
+            <li>Tudo do Essencial</li>
+            <li>Revisão do texto de apelação</li>
+            <li>1 acompanhamento por e-mail</li>
+          </ul>
+          <a class="buy" href="https://seu-checkout.com/completo" target="_blank" rel="noopener noreferrer">Comprar Completo</a>
+        </article>
+
+        <article class="plan">
+          <h4>Premium</h4>
+          <div class="price">R$ 149,90</div>
+          <div class="hint">Atendimento prioritário</div>
+          <ul>
+            <li>Tudo do Completo</li>
+            <li>Até 3 acompanhamentos</li>
+            <li>Resposta em até 24h úteis</li>
+          </ul>
+          <a class="buy" href="https://seu-checkout.com/premium" target="_blank" rel="noopener noreferrer">Comprar Premium</a>
+        </article>
+      </div>
+      <p class="hint" style="margin-top:10px">Não afiliado à Riot Games. Não garantimos resultado; oferecemos consultoria e orientação.</p>
+    </section>
+
+    <!-- FAQ -->
+    <section id="destaques" class="section card pad" aria-labelledby="tdest">
+      <h2 id="tdest" class="title">Destaques</h2>
+      <ul>
+        <li><span class="dot"></span><div class="t"><strong>Consultoria de apelação oficial</strong> — compatível com qualquer PC (NVIDIA & AMD).</div></li>
+        <li><span class="dot"></span><div class="t"><strong>Sem formatação do PC</strong> e sem alterações em BIOS.</div></li>
+        <li><span class="dot"></span><div class="t"><strong>Atuação contínua</strong> com foco em segurança e compliance.</div></li>
+        <li><span class="dot"></span><div class="t"><strong>Sem promessas de desbloqueio</strong>; oferecemos análise do caso e roteiro de apelação.</div></li>
+        <li><span class="dot"></span><div class="t"><strong>Entrega automática</strong> do material após a compra.</div></li>
+        <li><span class="dot"></span><div class="t"><strong>Vagas ativas</strong>: se este link está online, estamos aceitando novos atendimentos.</div></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    © <span id="yr"></span> Sua Marca — Guia de Apelação Valorant.
+  </footer>
+
+<script>
+  // Ano dinâmico
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // FAQ abre/fecha
+  document.querySelectorAll('.qa .q').forEach(q=>{
+    q.addEventListener('click', ()=> q.parentElement.classList.toggle('open'));
+  });
+
+  // Scroll suave para CTAs internos
+  document.querySelectorAll('a[href^="#"]').forEach(a=>{
+    a.addEventListener('click',e=>{
+      const id=a.getAttribute('href').slice(1);
+      const el=document.getElementById(id);
+      if(el){ e.preventDefault(); el.scrollIntoView({behavior:'smooth',block:'start'}); }
+    });
+  });
+</script>
+</body>
+</html>
